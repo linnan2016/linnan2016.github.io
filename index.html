@@ -62,6 +62,277 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-12-17T01:03:33.911Z"><a href="/2016/12/17/angular/">2016-12-17</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/12/17/angular/">angular</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="angular怎么用"><a href="#angular怎么用" class="headerlink" title="angular怎么用"></a>angular怎么用</h2><ul>
+<li>处理数据，前后端分离框架（MVVM），双向数据绑定，扩展标签的功能，模块化，单页开发。</li>
+</ul>
+<h2 id="ng-app-html"><a href="#ng-app-html" class="headerlink" title="ng-app(html)"></a>ng-app(html)</h2><ul>
+<li>启动angular程序，指定模块来启动，定义模块。调用run方法，$rootScope</li>
+</ul>
+<h2 id="ng-model"><a href="#ng-model" class="headerlink" title="ng-model"></a>ng-model</h2><ul>
+<li>只能放置变量，不能放运算</li>
+<li>用于表单元素，</li>
+<li>如果作用域上没有，则声明</li>
+<li>如果有取值放到输入框中</li>
+<li>如果使用user.name 则会创建一个对象，将name变成一个变量存入进来</li>
+</ul>
+<h2 id="ng-bind"><a href="#ng-bind" class="headerlink" title="ng-bind"></a>ng-bind</h2><ul>
+<li>和两个大括号一样，ng-bind不会闪烁</li>
+<li>不能用于表单元素</li>
+<li>可以使用!/?</li>
+<li>原有的内容会被ng-bind绑定的值替换掉</li>
+</ul>
+<h2 id="ng-cloak"><a href="#ng-cloak" class="headerlink" title="ng-cloak"></a>ng-cloak</h2><p>用途：防止闪烁</p>
+<ul>
+<li>先声明一个css，找到所有带有ng-cloak让其隐藏</li>
+<li>增加到需要防止闪烁的元素身上</li>
+<li>加载后移除掉ng-cloak属性</li>
+</ul>
+<h2 id="ng-controller"><a href="#ng-controller" class="headerlink" title="ng-controller"></a>ng-controller</h2><p>用途：调度数据的，买一送一作用域</p>
+<ul>
+<li>不能操作dom，dom在link函数操作</li>
+<li>管辖范围，和dom平齐</li>
+<li>可以将带有ng-controller的标签嵌套，子继承父，父继承不了子</li>
+<li>不能复用</li>
+<li>调用ng-controller后可以执行控制器</li>
+</ul>
+<h2 id="ng-repeat"><a href="#ng-repeat" class="headerlink" title="ng-repeat"></a>ng-repeat</h2><p>用途：循环遍历</p>
+<ul>
+<li>要循环谁就写在谁的身上</li>
+<li>遍历数组，ng中增加的属性$index $odd $even $first $last $middle (根据索引来遍历)</li>
+<li>通过(key,value)可以获得索引，默认写一个变量则是value</li>
+<li>对象同数组</li>
+</ul>
+<h2 id="ng-click"><a href="#ng-click" class="headerlink" title="ng-click"></a>ng-click</h2><ul>
+<li>angular中的事件 ng-click=”a()”</li>
+</ul>
+<h2 id="ng-show-ng-hide"><a href="#ng-show-ng-hide" class="headerlink" title="ng-show/ng-hide"></a>ng-show/ng-hide</h2><p>用途：控制元素的显示隐藏</p>
+<ul>
+<li>通过css样式显示隐藏，内部命令依然执行</li>
+</ul>
+<blockquote>
+<p>频繁切换采用ng-show/ng-hide</p>
+</blockquote>
+<h2 id="ng-if"><a href="#ng-if" class="headerlink" title="ng-if"></a>ng-if</h2><p>用途：控制元素的显示隐藏</p>
+<ul>
+<li>通过删除dom达到隐藏效果，如果为false，内部命令不再执行</li>
+<li>会产生一个作用域，保留删掉的内容</li>
+</ul>
+<blockquote>
+<p>一般和ng-repeat连用，如果数据不存在就移除掉dom</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-if=&quot;arrs.length&quot;&gt;</div><div class="line">    &lt;div ng-repeat=&quot;a in arrs&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="ng-disabled"><a href="#ng-disabled" class="headerlink" title="ng-disabled"></a>ng-disabled</h2><p>用途：ng-disabled=”true” 进入禁用状态</p>
+<h2 id="ng-readonly"><a href="#ng-readonly" class="headerlink" title="ng-readonly"></a>ng-readonly</h2><p>用途：ng-readonly=”true” 进入仅读状态</p>
+<h2 id="指令-内置，自定义"><a href="#指令-内置，自定义" class="headerlink" title="指令(内置，自定义)"></a>指令(内置，自定义)</h2><ul>
+<li>自定义：组件式和装饰型<pre><code>- 组件式：E 看有没有template
+- 装饰型：A 一般没有模板 link函数
+</code></pre></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">return&#123;</div><div class="line">    restrict:&apos;EA&apos;,</div><div class="line">    template/templateUrl,</div><div class="line">    transclude:true,</div><div class="line">    scope:true/&#123;@=&amp;&#125;/不写</div><div class="line">    replace:true,</div><div class="line">    link:function(scope,element,attrs)&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="git-add有什么作用-什么时候执行"><a href="#git-add有什么作用-什么时候执行" class="headerlink" title="git add有什么作用 什么时候执行"></a>git add有什么作用 什么时候执行</h2><p>添加到暂存区，在提交到历史区之前</p>
+<h2 id="git上传静态页面"><a href="#git上传静态页面" class="headerlink" title="git上传静态页面"></a>git上传静态页面</h2><ul>
+<li>先写好内容</li>
+<li><p>创建分支gh-pages</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b gh-pages</div></pre></td></tr></table></figure>
+</li>
+<li><p>链接远程仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote 别名 地址</div></pre></td></tr></table></figure>
+</li>
+<li><p>推送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push 别名 gh-pages</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><ul>
+<li><p>工作区和暂存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff</div></pre></td></tr></table></figure>
+</li>
+<li><p>工作区和历史区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff 分支名</div></pre></td></tr></table></figure>
+</li>
+<li><p>暂存区和历史区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff --cached</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-12-17T00:44:05.893Z"><a href="/2016/12/17/node/">2016-12-17</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/12/17/node/">node</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><ul>
+<li>seajs (CMD) requirejs (AMD)</li>
+<li>commonjs</li>
+</ul>
+<h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p>node的主线程永远是单线程的，<br>单进程 可以开多个线程<br>node只能多进程 单线程</p>
+<blockquote>
+<p>单线程 异步io(ajax,定时器,事件,回调函数) 事件驱动</p>
+</blockquote>
+<h2 id="验证时"><a href="#验证时" class="headerlink" title="验证时"></a>验证时</h2><ul>
+<li>一定要前后台都验证</li>
+</ul>
+<h2 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h2><ul>
+<li>依次执行(一个洗完另一个洗)</li>
+<li>异步(一起洗澡)</li>
+</ul>
+<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><p>针对内核来说的，非阻塞是异步的前置条件</p>
+<h2 id="单线程和多线程"><a href="#单线程和多线程" class="headerlink" title="单线程和多线程"></a>单线程和多线程</h2><ul>
+<li>多线程’同一个时间’可以干多件事，只是切换上下文(切换速度非常快)<blockquote>
+<p>不管是单核还是多核，都可以多进程</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="事件环"><a href="#事件环" class="headerlink" title="事件环"></a>事件环</h2><blockquote>
+<p>服务员有两个小本，第一个小本是当前干的事情，另一个则是一会要干的事情(一会干的事情都是异步的)</p>
+<p>能使用异步的不用同步，防止阻塞主线程</p>
+</blockquote>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><ul>
+<li>写代码时，可以在任意一个地方访问global</li>
+<li>‘在文件中’直接访问this不是global</li>
+<li>var的变量不会直接声明在global属性上，不写var会声明在global上<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">global.a=100;</div><div class="line">console.log(global.a);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="global"><a href="#global" class="headerlink" title="global"></a>global</h2><ul>
+<li>global</li>
+<li>process process.pid/.exit()/.kill()<ul>
+<li>process.nextTick 当前队列的底部</li>
+<li>process.cwd()    当前工作路径</li>
+<li>process.chdir()  改变目录</li>
+</ul>
+</li>
+<li>Buffer</li>
+<li>clearInterval/set</li>
+<li><p>clearTimeout/set</p>
+</li>
+<li><p>setImmediate/clear 第二个小本的立即</p>
+</li>
+<li>console log/warn/error/info/time/timeEnd</li>
+</ul>
+<h2 id="形参"><a href="#形参" class="headerlink" title="形参"></a>形参</h2><ul>
+<li>__filename 一旦产生就不能更改，执行文件被传入的参数</li>
+<li>__dirname</li>
+</ul>
+<h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><p>npm是安装node后给我们提供的一个包管理工具</p>
+<h2 id="安装，卸载，发布"><a href="#安装，卸载，发布" class="headerlink" title="安装，卸载，发布"></a>安装，卸载，发布</h2><ul>
+<li>1.全局安装 安装时增加-g参数<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install nodeppt -g</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>只要全局安装后就会在命令行下有一个nodeppt的命令</p>
+</blockquote>
+<h2 id="本地安装"><a href="#本地安装" class="headerlink" title="本地安装"></a>本地安装</h2><p>可以在代码中使用</p>
+<ul>
+<li><p>记住依赖(使用过哪写文件)初始化package.json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+</li>
+<li><p>开发依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install/uninstall gulp --save-dev</div></pre></td></tr></table></figure>
+</li>
+<li><p>发布依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install/uninstall jquery@3.0.0 --save</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.卸载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm uninstall gulp -g</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="发布到npm上-包"><a href="#发布到npm上-包" class="headerlink" title="发布到npm上(包)"></a>发布到npm上(包)</h2><ul>
+<li>发布的名字不能用人家已有的</li>
+<li>1.创建带有package.json的包</li>
+<li>2.增加index.js</li>
+<li>3.使用官方npm</li>
+<li><p>4.登陆你的账号进行发布</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm adduser</div></pre></td></tr></table></figure>
+</li>
+<li><p>5.发布</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm publish</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="doc文档生成"><a href="#doc文档生成" class="headerlink" title="doc文档生成"></a>doc文档生成</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install fandoc/idoc -g</div></pre></td></tr></table></figure>
+<ul>
+<li><p>初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fandoc init</div></pre></td></tr></table></figure>
+</li>
+<li><p>构建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fandoc build</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fandoc server</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="模块-1"><a href="#模块-1" class="headerlink" title="模块"></a>模块</h2><ul>
+<li><p>文件模块（两个模块之间的关系），引用时增加路径./等等，引用时可以不添加后缀名，默认会增加.js后缀，.json后缀，.node后缀</p>
+</li>
+<li><p>第三方模块（模块和包（别人的）之间的关系），引用时直接引用包的名字，只能找到根目录位置，找到后找到package.json文件中，main对应的文件执行</p>
+</li>
+<li><p>核心模块（直接引用即可）</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-12-14T02:59:57.595Z"><a href="/2016/12/14/hello-world/">2016-12-14</a></time>
       
       
@@ -119,43 +390,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-12-14T02:20:03.975Z"><a href="/2016/12/14/angular/">2016-12-14</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/12/14/angular/">angular</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        
-      
-    </div>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -164,7 +398,7 @@
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -173,15 +407,19 @@
 
   
 <div class="widget tag">
-  <h3 class="title">Neueste Artikel</h3>
+  <h3 class="title">Recent Posts</h3>
   <ul class="entry">
     
       <li>
-        <a href="/2016/12/14/hello-world/">Hello HEXO</a>
+        <a href="/2016/12/17/angular/">angular</a>
       </li>
     
       <li>
-        <a href="/2016/12/14/angular/">angular</a>
+        <a href="/2016/12/17/node/">node</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/14/hello-world/">Hello HEXO</a>
       </li>
     
   </ul>
