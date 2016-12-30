@@ -68,7 +68,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-12-30T03:06:54.093Z"><a href="/2016/12/30/gulp/">2016-12-30</a></time>
+        <time datetime="2016-12-30T03:08:15.073Z"><a href="/2016/12/30/gulp/">2016-12-30</a></time>
       
       
   
@@ -121,8 +121,8 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
 <li>gulp-rename 在把处理好的文件存放到指定的位置之前，我们可以先去重新命名一下它</li>
 <li>gulp-inject 动态自动插入生成后的js和css文件到html</li>
 <li>gulp-connect 可以帮我们创建一个本地服务器去运行我们的项目</li>
-<li>(*) 不能匹配路径分隔符</li>
-<li>(**) 可以匹配任意字符，并且可以匹配路径分隔符<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;js&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/js/**/*.js&apos;)</div><div class="line">       .pipe($.concat(&apos;all.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;))</div><div class="line">       .pipe($.uglify())</div><div class="line">       .pipe($.rename(&apos;all.min.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>不能匹配路径分隔符</li>
+<li>可以匹配任意字符，并且可以匹配路径分隔符<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;js&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/js/**/*.js&apos;)</div><div class="line">       .pipe($.concat(&apos;all.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;))</div><div class="line">       .pipe($.uglify())</div><div class="line">       .pipe($.rename(&apos;all.min.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;css&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/less/**/*.less&apos;)</div><div class="line">       .pipe($.less())</div><div class="line">       .pipe($.concat(&apos;all.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;))</div><div class="line">       .pipe($.cleanCss())</div><div class="line">       .pipe($.rename(&apos;all.min.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
@@ -149,7 +149,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Поиск">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -158,7 +158,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
 
   
 <div class="widget tag">
-  <h3 class="title">Neueste Artikel</h3>
+  <h3 class="title">Recent Posts</h3>
   <ul class="entry">
     
       <li>
