@@ -68,7 +68,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-12-30T03:08:15.073Z"><a href="/2016/12/30/gulp/">2016-12-30</a></time>
+        <time datetime="2016-12-30T03:08:36.776Z"><a href="/2016/12/30/gulp/">2016-12-30</a></time>
       
       
   
@@ -109,24 +109,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;watch&apos;,function()&#123;</div><div class="line">    //当glob指定的通配符文件发生变化的时候执行对应的函数</div><div class="line"> gulp.watch(&apos;./app/*.html&apos;,function(event)&#123;</div><div class="line">        console.log(event);</div><div class="line"> &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="gulp插件"><a href="#gulp插件" class="headerlink" title="gulp插件"></a>gulp插件</h2><ul>
-<li><p>gulp-load-plugins 会自动加载所有插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install gulp-load-plugins --save-dev</div></pre></td></tr></table></figure>
-</li>
-<li><p>less 可以把less文件编译成css</p>
-</li>
-<li>gulp-concat 可以把几个文件合并到一块</li>
-<li>gulp-clean-css 压缩css</li>
-<li>gulp-uglify 压缩js</li>
-<li>gulp-rename 在把处理好的文件存放到指定的位置之前，我们可以先去重新命名一下它</li>
-<li>gulp-inject 动态自动插入生成后的js和css文件到html</li>
-<li>gulp-connect 可以帮我们创建一个本地服务器去运行我们的项目</li>
-<li>不能匹配路径分隔符</li>
-<li>可以匹配任意字符，并且可以匹配路径分隔符<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;js&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/js/**/*.js&apos;)</div><div class="line">       .pipe($.concat(&apos;all.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;))</div><div class="line">       .pipe($.uglify())</div><div class="line">       .pipe($.rename(&apos;all.min.js&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/js&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;css&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/less/**/*.less&apos;)</div><div class="line">       .pipe($.less())</div><div class="line">       .pipe($.concat(&apos;all.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;))</div><div class="line">       .pipe($.cleanCss())</div><div class="line">       .pipe($.rename(&apos;all.min.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;copy-html&apos;,function()&#123;</div><div class="line">         gulp.src(&apos;app/index.html&apos;)//指定源文件</div><div class="line">             .pipe(gulp.dest(&apos;dist&apos;))//拷贝到dist目录</div><div class="line">             .pipe(connect.reload());//通知浏览器重启</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    gulp.task(&apos;watch&apos;,function()&#123;</div><div class="line">      //当index.html文件变化时执行copy-html任务</div><div class="line">        gulp.watch(&apos;app/index.html&apos;,[&apos;copy-html&apos;]);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    gulp.task(&apos;server&apos;,function()&#123;</div><div class="line">        connect.server(&#123;</div><div class="line">            root:&apos;dist&apos;,//服务器的根目录</div><div class="line">            port:8080, //服务器的地址，没有此配置项默认也是 8080</div><div class="line">            livereload:true//启用实时刷新的功能</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">    //运行此任务的时候会在8080上启动服务器，</div><div class="line">    gulp.task(&apos;default&apos;,[&apos;server&apos;,&apos;watch&apos;]);</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -149,7 +132,7 @@ gulp是可以自动化执行任务的工具 在平时开发的流程里面,一�
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Поиск">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
