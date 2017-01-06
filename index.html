@@ -62,6 +62,267 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2017-01-06T01:57:26.060Z"><a href="/2017/01/06/mongo/">2017-01-06</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/01/06/mongo/">mongodb</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="mongodb是前端最佳学习的数据库"><a href="#mongodb是前端最佳学习的数据库" class="headerlink" title="mongodb是前端最佳学习的数据库"></a>mongodb是前端最佳学习的数据库</h2><ul>
+<li>开源免费</li>
+<li>单机性能非常高 每秒能读写1.6万次</li>
+<li>可以支持水平扩展，存储量和并发可以无限扩展</li>
+<li>支持主从备份</li>
+<li>数据语法是javascript</li>
+<li>里面存放的数据库就是JSON</li>
+</ul>
+<h2 id="mongodb启动与连接"><a href="#mongodb启动与连接" class="headerlink" title="mongodb启动与连接"></a>mongodb启动与连接</h2><ul>
+<li>在mongodb安装目录的bin文件夹下输入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod --dbpath=x:\xx\data(刚创建的空目录)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如果出现waiting for connections on port 27017就表示启动成功</p>
+</blockquote>
+<ul>
+<li>然后还是在mongodb安装目录的bin文件夹下输入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo --host=127.0.0.1 或者 mongo 按回车键</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如果显示 connecting to: test 就表示链接成功</p>
+</blockquote>
+<h2 id="Mongoose是什么？"><a href="#Mongoose是什么？" class="headerlink" title="Mongoose是什么？"></a>Mongoose是什么？</h2><p>   Mongoose是MongoDB的一个对象模型工具 同时它也是针对MongoDB操作的一个对象模型库,封装了MongoDB对文档的的一些增删改查等常用方法 让NodeJS操作Mongodb数据库变得更加灵活简单</p>
+<h2 id="安装mongoose"><a href="#安装mongoose" class="headerlink" title="安装mongoose"></a>安装mongoose</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install mongoose</div></pre></td></tr></table></figure>
+<h2 id="使用mongoose"><a href="#使用mongoose" class="headerlink" title="使用mongoose"></a>使用mongoose</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var mongoose = require(&quot;mongoose&quot;);</div><div class="line">mongoose.connect(&quot;mongodb://localhost:端口号/数据库名称&quot;);</div><div class="line">var personSchema = new mongoose.Schema(&#123;</div><div class="line">      name:String, //姓名</div><div class="line">      binary:Buffer,//二进制</div><div class="line">      living:Boolean,//是否活着</div><div class="line">      birthday:Date,//生日</div><div class="line">      age:Number,//年龄</div><div class="line">      _id:Schema.Types.ObjectId,  //主键</div><div class="line">      _fk:Schema.Types.ObjectId,  //外键</div><div class="line">      array:[],//数组</div><div class="line">      arrOfString:[String],//字符串数组</div><div class="line">      arrOfNumber:[Number],//数字数组</div><div class="line">      arrOfDate:[Date],//日期数组</div><div class="line">      arrOfBuffer:[Buffer],//Buffer数组</div><div class="line">      arrOfBoolean:[Boolean],//布尔值数组</div><div class="line">      arrOfObjectId:[Schema.Types.ObjectId]//对象ID数组</div><div class="line">      nested:&#123; //内嵌文档</div><div class="line">        name:String,</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">var PersonModel = mongoose.model(&quot;Person&quot;, PersonSchema);</div></pre></td></tr></table></figure>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
+<li><p>保存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Model.create(文档数据, callback));</div><div class="line"></div><div class="line">PersonModel.create(&#123; name:&quot;zfpx&quot;, age:7&#125;, function(error,doc)&#123;</div><div class="line">    if(error) &#123;</div><div class="line">        console.log(error);</div><div class="line">    &#125; else &#123;</div><div class="line">        console.log(doc);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Model.find(查询条件,callback);//若没有向find传递参数，默认的是显示所有文档</div></pre></td></tr></table></figure>
+</li>
+<li><p>findOne(查询单条)</p>
+<ul>
+<li>与find相同，但只返回单个文档，也就说当查询到即一个符合条件的数据时，将停止继续查询，并返回查询结果 语法<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">findOne(Conditions,callback)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>findById(按ID单条数据)</p>
+<ul>
+<li>与findOne相同，但它只接收文档的_id作为参数，返回单个文档 语法<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">findById(_id, callback)</div><div class="line">PersonModel.findById(person._id, function (err, doc)&#123;</div><div class="line">     //doc 查询结果文档</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Model.update(查询条件,更新对象,callback);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>请注意如果匹配到多条记录，默认只更新一条，如果要更新匹配到的所有记录的话需要加一个参数 {multi:true}</p>
+</blockquote>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-01-06T00:49:38.465Z"><a href="/2017/01/06/express/">2017-01-06</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/01/06/express/">express</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="express-三部曲"><a href="#express-三部曲" class="headerlink" title="express 三部曲"></a>express 三部曲</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var express=require(&apos;express&apos;);</div><div class="line">var app=express();</div><div class="line">app.listen(xxxx);</div></pre></td></tr></table></figure>
+<h2 id="一、路由"><a href="#一、路由" class="headerlink" title="一、路由"></a>一、路由</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">app.方法名(&apos;/()?&apos;,function(req,res)&#123;</div><div class="line">	...</div><div class="line">	res.end();//一定要有</div><div class="line">&#125;)</div><div class="line">app.all(&apos;*&apos;,function()&#123;             //all能匹配所有的方法，*能匹配所有的路径</div><div class="line">	...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="二、获取请求的参数"><a href="#二、获取请求的参数" class="headerlink" title="二、获取请求的参数"></a>二、获取请求的参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.get/post(&apos;/()&apos;,function(req,res)&#123;</div><div class="line">	req.params.id/req.params.name...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="三、中间件"><a href="#三、中间件" class="headerlink" title="三、中间件"></a>三、中间件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.use(function(req,res,next)&#123;</div><div class="line">	...</div><div class="line">	next();//一定要有</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>中间件<ul>
+<li>1 执行一些公共的逻辑，比如设置内容类型 res.setHeader(‘Content-Type’,’text/html;charset=utf8’);</li>
+<li>2 添加一些公共的方法和属性 req.query req.path req.send</li>
+<li>3 还可以覆盖一些原有方法，插入我们自己的逻辑</li>
+<li>中间件里可以放路径，但这个路径的含义是只要请求的URL以这个路径开头就可以<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;,function(req,res,next)&#123;</div><div class="line">    req.money -=50;</div><div class="line">    // next参数表示任务出错了，跳过后面正常的中间件，会执行错误处理中间件</div><div class="line">    next(&apos;失火了&apos;);</div><div class="line">&#125;);</div><div class="line">app.use(&apos;/user&apos;,function(err,req,res,next)&#123; //会多一个err参数</div><div class="line">   ...</div><div class="line">   res.end(&apos;错误:&apos;+err); //错误:&apos;失火了&apos;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="三-1、路由容器"><a href="#三-1、路由容器" class="headerlink" title="三-1、路由容器"></a>三-1、路由容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var user=require(&apos;./routes/user&apos;);//路径为routes目录下的user.js文件</div><div class="line">app.use(&apos;/user&apos;,user);//如果客户端访问的路径是以/user开头的话</div><div class="line"></div><div class="line">user.js:</div><div class="line">var express = require(&apos;express&apos;);</div><div class="line">//调用工厂方法生成一个路由容器的实例,这个实例也是一个中间件函数</div><div class="line">var router = express.Router();//特殊的</div><div class="line">router.get(&apos;/add&apos;,function(req,res)&#123;</div><div class="line">    res.end(&apos;注册&apos;);</div><div class="line">&#125;);</div><div class="line">module.exports = router;</div></pre></td></tr></table></figure>
+<ul>
+<li>路由(app.all..)和中间件都能匹配所有路径，当路由匹配上就不继续执行了，中间件是要看有没有next()</li>
+</ul>
+<h2 id="四、send"><a href="#四、send" class="headerlink" title="四、send"></a>四、send</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">res.sendFile(path.resolve(&apos;index.html&apos;));//发送一个绝对路径的文件</div><div class="line">res.send();//字符串或者模板字符串或者对象等等</div></pre></td></tr></table></figure>
+<h2 id="五、模板"><a href="#五、模板" class="headerlink" title="五、模板"></a>五、模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//设置模板引擎 ejs</div><div class="line">app.set(&apos;view engine&apos;,&apos;ejs&apos;);</div><div class="line">//如果模板的后缀是html的话，使用ejs来进行渲染</div><div class="line">app.engine(&apos;html&apos;,require(&apos;ejs&apos;).__express);</div></pre></td></tr></table></figure>
+<ul>
+<li>模板的存放目录的绝对路径<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.set(&apos;views&apos;,path.resolve(&apos;views&apos;));</div><div class="line">//静态文件中间件，也是express自己亲自的一个唯一中间件</div><div class="line">app.use(express.static(path.join(__dirname,&apos;public&apos;)));</div><div class="line">app.use(express.static(path.resolve(&apos;public&apos;)));</div><div class="line">app.get(&apos;&apos;,function()&#123;res.render(&apos;user,&#123;users:users&#125;&apos;)&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六、重定向"><a href="#六、重定向" class="headerlink" title="六、重定向"></a>六、重定向</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.get(&apos;&apos;,function(req,res)&#123;res.redirect(&apos;/&apos;)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="七、监听请求体"><a href="#七、监听请求体" class="headerlink" title="七、监听请求体"></a>七、监听请求体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var bodyParser = require(&apos;body-parser&apos;);//需要npm安装并可依赖</div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:true&#125;));//表单数据</div><div class="line">app.use(bodyParser.json());                     //或json数据</div><div class="line">app.post(&apos;/login&apos;,function(req,res)&#123;console.log(req.body)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="八、cookie"><a href="#八、cookie" class="headerlink" title="八、cookie"></a>八、cookie</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var cookieParser=require(&apos;cookie-parser&apos;);</div><div class="line">//规律：基本上所有的中间件模块都是一个函数，调用它才会返回我们需要的中间件函数</div><div class="line">app.use(cookieParser())</div><div class="line"></div><div class="line">app.get(&apos;/write&apos;,function(req,res)&#123;</div><div class="line">	向客户端写cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;domain:&apos;.jd.com&apos;&#125;);//这个cookie归哪个域名所有，向哪此以这些域名为后缀的服务器发请求的时候要带上这些cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;path:&apos;/read1&apos;&#125;);//只有客户端向 /read1路径发请求的时候才要带上cookie</div><div class="line">	&#123;expires:new Date(Date.now()+1*1000)&#125;;//绝对的时间 1秒后过期</div><div class="line">	&#123;maxAge:10*1000&#125;;//相对的过期时间</div><div class="line">	&#123;httpOnly:true&#125;;//无法通过JS来读写cookie</div><div class="line">&#125;)</div><div class="line">app.get(&apos;/read&apos;,function(req,res)&#123;res.end(req.cookie)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="九、session"><a href="#九、session" class="headerlink" title="九、session"></a>九、session</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var session = require(&apos;express-session&apos;);//也需要npm安装并可依赖</div><div class="line">app.use(session(&#123;</div><div class="line">	resave:true,</div><div class="line">	saveUninitialized:true,</div><div class="line">	secret:&apos;zfpx&apos;//如果想不起来，可以直接运行在警告中查看需要写啥</div><div class="line">&#125;))</div><div class="line"></div><div class="line">req.session.success = &apos;注册成功&apos;;是改值</div><div class="line">req.session.success             ;是读值</div></pre></td></tr></table></figure>
+<h2 id="十、request"><a href="#十、request" class="headerlink" title="十、request"></a>十、request</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(req.method);//可以获取请求content-type方法</div><div class="line">console.log(req.url);//获取完整的url地址</div><div class="line">console.log(req.path);//获取路径名，就是?前面的部分</div><div class="line">console.log(req.query);//查询字符串对象</div><div class="line">console.log(req.headers);//获取请求头对象</div><div class="line">console.log(req.params.id);//可以获取URL中的参数值</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-12-30T07:44:34.067Z"><a href="/2016/12/30/react/">2016-12-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/12/30/react/">react</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="一、什么是react"><a href="#一、什么是react" class="headerlink" title="一、什么是react"></a>一、什么是react</h2><ul>
+<li>React 是一个用于构建用户界面的JavaScript库</li>
+</ul>
+<h2 id="安装react"><a href="#安装react" class="headerlink" title="安装react"></a>安装react</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bower install react babel --save</div></pre></td></tr></table></figure>
+<h2 id="二、直接在浏览器中使用React"><a href="#二、直接在浏览器中使用React" class="headerlink" title="二、直接在浏览器中使用React"></a>二、直接在浏览器中使用React</h2><pre><code>&lt;script src=&quot;../bower_components/react/react.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../bower_components/react/react-dom.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../bower_components/babel/browser.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/babel&quot; src=&quot;index.js&quot;&gt;&lt;/script&gt;
+</code></pre><ul>
+<li>react.js 是 React 的核心库,会在window下增加一个 React属性</li>
+<li>react-dom.js 是提供与DOM相关的功能,会在window下增加ReactDOM属性</li>
+<li>browser.js 的作用是将JSX语法转为JavaScript语法</li>
+</ul>
+<blockquote>
+<p>　script中的type属性为text/babel,因为React独有的JSX语法,跟JavaScript不兼容</p>
+</blockquote>
+<h2 id="三、定义组件"><a href="#三、定义组件" class="headerlink" title="三、定义组件"></a>三、定义组件</h2><p>我们可以很直观的将一个复杂的页面分割成若干个独立组件,每个组件包含自己的逻辑和样式 再将这些独立组件组合完成一个复杂的页面。 这样既减少了逻辑复杂度，又实现了代码的重用</p>
+<ul>
+<li>可组合：一个组件可以和其他的组件一起使用或者可以直接嵌套在另一个组件内部</li>
+<li>可重用：每个组件都是具有独立功能的，它可以被使用在多个场景中</li>
+<li><p>可维护：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护</p>
+</li>
+<li><p>组件类的第一个字母必须大写</p>
+</li>
+<li>组件类能且只能包含一个顶层标签<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var Message = React.createClass(&#123;</div><div class="line">    render: function() &#123;</div><div class="line">        return &lt;h1&gt;Hello&lt;/h1&gt;;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Message/&gt;,</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="四、组件的属性"><a href="#四、组件的属性" class="headerlink" title="四、组件的属性"></a>四、组件的属性</h2><ul>
+<li>每个组件可以有自己的属性,一般用来存放组件初始后不变的数据,比如人的性别，姓名等</li>
+<li>属性一般用作组件的数据源，一般由父组件传入,比如你的名字一般是由你父母取的</li>
+<li>属性可以通过this.props中取出</li>
+<li>propTypes可以用来定义传入组件属性的名称和类型</li>
+<li>getDefaultProps函数可以用来定会引起组件的默认属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">var Person = React.createClass(&#123;</div><div class="line">    //类似于约定了一个接口文档,用于这是验证传递给组件的属性，</div><div class="line">    propTypes: &#123;</div><div class="line">        //定义msg的属性类型为字符串，必须传入</div><div class="line">        name: React.PropTypes.string.isRequired,</div><div class="line">        gender: React.PropTypes.string.isRequired,</div><div class="line">        age:React.PropTypes.number.isRequired</div><div class="line">    &#125;,</div><div class="line">    getDefaultProps:function()&#123;</div><div class="line">        return &#123;name:&apos;无名氏&apos;&#125;</div><div class="line">    &#125;,</div><div class="line">    render: function() &#123;</div><div class="line">        //属性可以通过属性对象this.props中取出</div><div class="line">        return (&lt;h1&gt; &#123;this.props.name&#125;</div><div class="line">                     &#123;this.props.gender&#125;</div><div class="line">                     &#123;this.props.age&#125;</div><div class="line">                &lt;/h1&gt;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">var props = &#123;</div><div class="line">    gender:&apos;男&apos;,</div><div class="line">    age:18</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Person &#123;...props&#125; /&gt;,//属性可以在使用组件时传入</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="五、this-props-children"><a href="#五、this-props-children" class="headerlink" title="五、this.props.children"></a>五、this.props.children</h2><p>this.props对象的属性与组件实例的属性一一对应,但this.props.children属性表示组件的所有子节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var Person = React.createClass(&#123;</div><div class="line">    render: function() &#123;</div><div class="line">      return (</div><div class="line">            &lt;ol&gt;</div><div class="line">                &#123;</div><div class="line">                    this.props.children.map(</div><div class="line">                      function (child) &#123;</div><div class="line">                        return &lt;li&gt;&#123;child&#125;&lt;/li&gt;;</div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">            &lt;/ol&gt;</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Person&gt;</div><div class="line">        &lt;span&gt;大毛&lt;/span&gt;</div><div class="line">        &lt;span&gt;二毛&lt;/span&gt;</div><div class="line">        &lt;span&gt;三毛&lt;/span&gt;</div><div class="line">    &lt;/Person&gt;,</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h2 id="state状态"><a href="#state状态" class="headerlink" title="state状态"></a>state状态</h2><ul>
+<li>组件的状态就像人的心情，会经常变化，而且只能由自己来改变</li>
+<li>组件一开始有一个初始状态,然后用户互动,导致状态变化，从而触发界面重新渲染</li>
+<li>getInitialState用来定义初始状态</li>
+<li><p>可以给按钮绑定事件，当事件发生的时候调用对应的方法改变组件的状态</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var Person = React.createClass(&#123;</div><div class="line">    getInitialState: function() &#123;</div><div class="line">        return &#123;happy: true&#125;;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    getDefaultProps:function()&#123;</div><div class="line">        return &#123;name:&apos;无名氏&apos;&#125;;</div><div class="line">    &#125;,</div><div class="line">    handleClick: function(event) &#123;</div><div class="line">        this.setState(&#123;happy: !this.state.happy&#125;);</div><div class="line">    &#125;,</div><div class="line">    render: function() &#123;</div><div class="line">        var heart = this.state.happy ? &apos;开心&apos; : &apos;不开心&apos;;</div><div class="line">        return (</div><div class="line">            &lt;p &gt;</div><div class="line">                 &#123;this.props.name&#125; &#123;heart&#125; &lt;br/&gt;</div><div class="line">                 &lt;button onClick=&#123;this.handleClick&#125;&gt;变心&lt;/button&gt;</div><div class="line">            &lt;/p&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Person name=&quot;林志玲&quot; /&gt;,</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p> 常用的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">剪贴板事件 onKeyDown onKeyPress onKeyUp</div><div class="line">键盘事件 onFocus onBlur</div><div class="line">焦点事件 onChange onInput onSubmit</div><div class="line">鼠标事件 onClick onDoubleClick onMouseDown onMouseEnter onMouseLeave</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="表单元素双向数据绑定"><a href="#表单元素双向数据绑定" class="headerlink" title="表单元素双向数据绑定"></a>表单元素双向数据绑定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">var Input = React.createClass(&#123;</div><div class="line">    getInitialState: function() &#123;//获取初始状态</div><div class="line">        return &#123;value: &apos;珠峰培训&apos;&#125;;</div><div class="line">    &#125;,</div><div class="line">    handleChange: function(event) &#123; //处理改变事件</div><div class="line">        this.setState(&#123;value: event.target.value&#125;);</div><div class="line">    &#125;,</div><div class="line">    render: function () &#123;</div><div class="line">        var value = this.state.value;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;input style=&#123;&#123;color:&apos;red&apos;&#125;&#125; type=&quot;text&quot;</div><div class="line">                value=&#123;value&#125; onChange=&#123;this.handleChange&#125; /&gt;</div><div class="line">                &lt;p&gt;&#123;value&#125;&lt;/p&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Input/&gt;, document.getElementById(&apos;app&apos;));</div></pre></td></tr></table></figure>
+<p>   注意: 如果给表单元素设置了value属性，则必须指定onChange事件处理函数，否则 此字段会变成只读状态</p>
+<h2 id="六、复合组件"><a href="#六、复合组件" class="headerlink" title="六、复合组件"></a>六、复合组件</h2><p>   多个简单的组件嵌套，可构成一个复杂的复合组件，从而完成复杂的交互逻辑<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">var Panel = React.createClass(&#123;</div><div class="line">    render: function () &#123;</div><div class="line">        return (</div><div class="line">            &lt;div className=&quot;panel panel-default&quot;&gt;</div><div class="line">                &lt;PanelHead head=&#123;this.props.head&#125;/&gt;</div><div class="line">                &lt;PanelBody body=&#123;this.props.body&#125;/&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line">var PanelHead = React.createClass(&#123;</div><div class="line">    render: function () &#123;</div><div class="line">        return (</div><div class="line">            &lt;div className=&quot;panel-heading&quot;&gt;</div><div class="line">                &#123;this.props.head&#125;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line">var PanelBody = React.createClass(&#123;</div><div class="line">    render: function () &#123;</div><div class="line">        return (</div><div class="line">            &lt;div className=&quot;panel-body&quot;&gt;</div><div class="line">                &#123;this.props.body&#125;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Panel</div><div class="line">        head=&quot;头部&quot;</div><div class="line">        body=&quot;正文&quot;</div><div class="line">    /&gt;,</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h2 id="七、DOM操作"><a href="#七、DOM操作" class="headerlink" title="七、DOM操作"></a>七、DOM操作</h2><p>   给组件加上ref=”xxx”后，可在父组件中通过this.refs.xxx获取该DOM元素<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var Focus = React.createClass(&#123;</div><div class="line">    handleClick: function() &#123;</div><div class="line">        this.refs.msg.focus();</div><div class="line">    &#125;,</div><div class="line">    render: function() &#123;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;input type=&quot;text&quot; ref=&quot;msg&quot; /&gt;</div><div class="line">                &lt;input type=&quot;button&quot; value=&quot;获得焦点&quot;</div><div class="line">                onClick=&#123;this.handleClick&#125; /&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Focus /&gt;,</div><div class="line">    document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h2 id="八、组件的生命周期"><a href="#八、组件的生命周期" class="headerlink" title="八、组件的生命周期"></a>八、组件的生命周期</h2><p>React中可以指定在组件的生命周期的不同阶段执行的函数</p>
+<ul>
+<li>渲染前<ul>
+<li>getDefaultProps 获取默认属性对象</li>
+<li>getInitialState 获取初始状态对象</li>
+<li>componentWillMount 组件将要被挂载到DOM容器内部</li>
+</ul>
+</li>
+<li>渲染<ul>
+<li>render 把组件挂载到DOM容器内部</li>
+</ul>
+</li>
+<li>渲染后<ul>
+<li>componentDidMount 组件挂载完成后(最常用的)</li>
+<li>shouldComponentUpdate 组件是否应该被更新</li>
+<li>componentWillUpdate 组件将被更新</li>
+<li>componentDidUpdate 组件更新完成后</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-12-30T03:11:03.846Z"><a href="/2016/12/30/gulp/">2016-12-30</a></time>
       
       
@@ -121,71 +382,6 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;css&apos;,function()&#123;</div><div class="line">   gulp.src(&apos;./app/less/**/*.less&apos;)</div><div class="line">       .pipe($.less())</div><div class="line">       .pipe($.concat(&apos;all.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;))</div><div class="line">       .pipe($.cleanCss())</div><div class="line">       .pipe($.rename(&apos;all.min.css&apos;))</div><div class="line">       .pipe(gulp.dest(&apos;./dist/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;copy-html&apos;,function()&#123;</div><div class="line">         gulp.src(&apos;app/index.html&apos;)//指定源文件</div><div class="line">             .pipe(gulp.dest(&apos;dist&apos;))//拷贝到dist目录</div><div class="line">             .pipe(connect.reload());//通知浏览器重启</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    gulp.task(&apos;watch&apos;,function()&#123;</div><div class="line">      //当index.html文件变化时执行copy-html任务</div><div class="line">        gulp.watch(&apos;app/index.html&apos;,[&apos;copy-html&apos;]);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    gulp.task(&apos;server&apos;,function()&#123;</div><div class="line">        connect.server(&#123;</div><div class="line">            root:&apos;dist&apos;,//服务器的根目录</div><div class="line">            port:8080, //服务器的地址，没有此配置项默认也是 8080</div><div class="line">            livereload:true//启用实时刷新的功能</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">    //运行此任务的时候会在8080上启动服务器，</div><div class="line">    gulp.task(&apos;default&apos;,[&apos;server&apos;,&apos;watch&apos;]);</div></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-12-26T05:20:09.378Z"><a href="/2016/12/26/express/">2016-12-26</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/12/26/express/">express</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="express-三部曲"><a href="#express-三部曲" class="headerlink" title="express 三部曲"></a>express 三部曲</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var express=require(&apos;express&apos;);</div><div class="line">var app=express();</div><div class="line">app.listen(xxxx);</div></pre></td></tr></table></figure>
-<h2 id="一、路由"><a href="#一、路由" class="headerlink" title="一、路由"></a>一、路由</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">app.方法名(&apos;/()?&apos;,function(req,res)&#123;</div><div class="line">	...</div><div class="line">	res.end();//一定要有</div><div class="line">&#125;)</div><div class="line">app.all(&apos;*&apos;,function()&#123;             //all能匹配所有的方法，*能匹配所有的路径</div><div class="line">	...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="二、获取请求的参数"><a href="#二、获取请求的参数" class="headerlink" title="二、获取请求的参数"></a>二、获取请求的参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.get/post(&apos;/()&apos;,function(req,res)&#123;</div><div class="line">	req.params.id/req.params.name...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="三、中间件"><a href="#三、中间件" class="headerlink" title="三、中间件"></a>三、中间件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.use(function(req,res,next)&#123;</div><div class="line">	...</div><div class="line">	next();//一定要有</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<ul>
-<li>中间件<ul>
-<li>1 执行一些公共的逻辑，比如设置内容类型 res.setHeader(‘Content-Type’,’text/html;charset=utf8’);</li>
-<li>2 添加一些公共的方法和属性 req.query req.path req.send</li>
-<li>3 还可以覆盖一些原有方法，插入我们自己的逻辑</li>
-<li>中间件里可以放路径，但这个路径的含义是只要请求的URL以这个路径开头就可以<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;,function(req,res,next)&#123;</div><div class="line">    req.money -=50;</div><div class="line">    // next参数表示任务出错了，跳过后面正常的中间件，会执行错误处理中间件</div><div class="line">    next(&apos;失火了&apos;);</div><div class="line">&#125;);</div><div class="line">app.use(&apos;/user&apos;,function(err,req,res,next)&#123; //会多一个err参数</div><div class="line">   ...</div><div class="line">   res.end(&apos;错误:&apos;+err); //错误:&apos;失火了&apos;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="三-1、路由容器"><a href="#三-1、路由容器" class="headerlink" title="三-1、路由容器"></a>三-1、路由容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var user=require(&apos;./routes/user&apos;);//路径为routes目录下的user.js文件</div><div class="line">app.use(&apos;/user&apos;,user);//如果客户端访问的路径是以/user开头的话</div><div class="line"></div><div class="line">user.js:</div><div class="line">var express = require(&apos;express&apos;);</div><div class="line">//调用工厂方法生成一个路由容器的实例,这个实例也是一个中间件函数</div><div class="line">var router = express.Router();//特殊的</div><div class="line">router.get(&apos;/add&apos;,function(req,res)&#123;</div><div class="line">    res.end(&apos;注册&apos;);</div><div class="line">&#125;);</div><div class="line">module.exports = router;</div></pre></td></tr></table></figure>
-<ul>
-<li>路由(app.all..)和中间件都能匹配所有路径，当路由匹配上就不继续执行了，中间件是要看有没有next()</li>
-</ul>
-<h2 id="四、send"><a href="#四、send" class="headerlink" title="四、send"></a>四、send</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">res.sendFile(path.resolve(&apos;index.html&apos;));//发送一个绝对路径的文件</div><div class="line">res.send();//字符串或者模板字符串或者对象等等</div></pre></td></tr></table></figure>
-<h2 id="五、模板"><a href="#五、模板" class="headerlink" title="五、模板"></a>五、模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//设置模板引擎 ejs</div><div class="line">app.set(&apos;view engine&apos;,&apos;ejs&apos;);</div><div class="line">//如果模板的后缀是html的话，使用ejs来进行渲染</div><div class="line">app.engine(&apos;html&apos;,require(&apos;ejs&apos;).__express);</div></pre></td></tr></table></figure>
-<ul>
-<li>模板的存放目录的绝对路径<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.set(&apos;views&apos;,path.resolve(&apos;views&apos;));</div><div class="line">//静态文件中间件，也是express自己亲自的一个唯一中间件</div><div class="line">app.use(express.static(path.join(__dirname,&apos;public&apos;)));</div><div class="line">app.use(express.static(path.resolve(&apos;public&apos;)));</div><div class="line">app.get(&apos;&apos;,function()&#123;res.render(&apos;user,&#123;users:users&#125;&apos;)&#125;)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="六、重定向"><a href="#六、重定向" class="headerlink" title="六、重定向"></a>六、重定向</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.get(&apos;&apos;,function(req,res)&#123;res.redirect(&apos;/&apos;)&#125;)</div></pre></td></tr></table></figure>
-<h2 id="七、监听请求体"><a href="#七、监听请求体" class="headerlink" title="七、监听请求体"></a>七、监听请求体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var bodyParser = require(&apos;body-parser&apos;);//需要npm安装并可依赖</div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:true&#125;));//表单数据</div><div class="line">app.use(bodyParser.json());                     //或json数据</div><div class="line">app.post(&apos;/login&apos;,function(req,res)&#123;console.log(req.body)&#125;)</div></pre></td></tr></table></figure>
-<h2 id="八、cookie"><a href="#八、cookie" class="headerlink" title="八、cookie"></a>八、cookie</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var cookieParser=require(&apos;cookie-parser&apos;);</div><div class="line">//规律：基本上所有的中间件模块都是一个函数，调用它才会返回我们需要的中间件函数</div><div class="line">app.use(cookieParser())</div><div class="line"></div><div class="line">app.get(&apos;/write&apos;,function(req,res)&#123;</div><div class="line">	向客户端写cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;domain:&apos;.jd.com&apos;&#125;);//这个cookie归哪个域名所有，向哪此以这些域名为后缀的服务器发请求的时候要带上这些cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;path:&apos;/read1&apos;&#125;);//只有客户端向 /read1路径发请求的时候才要带上cookie</div><div class="line">	&#123;expires:new Date(Date.now()+1*1000)&#125;;//绝对的时间 1秒后过期</div><div class="line">	&#123;maxAge:10*1000&#125;;//相对的过期时间</div><div class="line">	&#123;httpOnly:true&#125;;//无法通过JS来读写cookie</div><div class="line">&#125;)</div><div class="line">app.get(&apos;/read&apos;,function(req,res)&#123;res.end(req.cookie)&#125;)</div></pre></td></tr></table></figure>
-<h2 id="九、session"><a href="#九、session" class="headerlink" title="九、session"></a>九、session</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var session = require(&apos;express-session&apos;);//也需要npm安装并可依赖</div><div class="line">app.use(session(&#123;</div><div class="line">	resave:true,</div><div class="line">	saveUninitialized:true,</div><div class="line">	secret:&apos;zfpx&apos;//如果想不起来，可以直接运行在警告中查看需要写啥</div><div class="line">&#125;))</div><div class="line"></div><div class="line">req.session.success = &apos;注册成功&apos;;是改值</div><div class="line">req.session.success             ;是读值</div></pre></td></tr></table></figure>
-
       
     </div>
     
@@ -684,23 +880,23 @@ var app = angular.module(&apos;appModule&apos;,[]);
   <ul class="entry">
     
       <li>
+        <a href="/2017/01/06/mongo/">mongodb</a>
+      </li>
+    
+      <li>
+        <a href="/2017/01/06/express/">express</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/30/react/">react</a>
+      </li>
+    
+      <li>
         <a href="/2016/12/30/gulp/">gulp</a>
       </li>
     
       <li>
-        <a href="/2016/12/26/express/">express</a>
-      </li>
-    
-      <li>
         <a href="/2016/12/26/angular/">angular</a>
-      </li>
-    
-      <li>
-        <a href="/2016/12/20/node/">node</a>
-      </li>
-    
-      <li>
-        <a href="/2016/12/14/hello-world/">Hello HEXO</a>
       </li>
     
   </ul>

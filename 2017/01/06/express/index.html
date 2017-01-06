@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>express | 林楠的个人博客</title>
+  <meta name="author" content="zero" />
+
+  
+  <meta name="description" content="express 三部曲123var express=require(&amp;apos;express&amp;apos;);var app=express();app.listen(xxxx);
+一、路由12345678app.方法名(&amp;apos;/()?&amp;apos;,function(req,res)&amp;#123" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="express" />
+  <meta property="og:site_name" content="林楠的个人博客" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="林楠的个人博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林楠的个人博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-01-06T00:49:38.465Z"><a href="/2017/01/06/express/">2017-01-06</a></time>
+      
+      
+  
+    <h1 class="title">express</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="express-三部曲"><a href="#express-三部曲" class="headerlink" title="express 三部曲"></a>express 三部曲</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var express=require(&apos;express&apos;);</div><div class="line">var app=express();</div><div class="line">app.listen(xxxx);</div></pre></td></tr></table></figure>
+<h2 id="一、路由"><a href="#一、路由" class="headerlink" title="一、路由"></a>一、路由</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">app.方法名(&apos;/()?&apos;,function(req,res)&#123;</div><div class="line">	...</div><div class="line">	res.end();//一定要有</div><div class="line">&#125;)</div><div class="line">app.all(&apos;*&apos;,function()&#123;             //all能匹配所有的方法，*能匹配所有的路径</div><div class="line">	...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="二、获取请求的参数"><a href="#二、获取请求的参数" class="headerlink" title="二、获取请求的参数"></a>二、获取请求的参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.get/post(&apos;/()&apos;,function(req,res)&#123;</div><div class="line">	req.params.id/req.params.name...</div><div class="line">	res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="三、中间件"><a href="#三、中间件" class="headerlink" title="三、中间件"></a>三、中间件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.use(function(req,res,next)&#123;</div><div class="line">	...</div><div class="line">	next();//一定要有</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>中间件<ul>
+<li>1 执行一些公共的逻辑，比如设置内容类型 res.setHeader(‘Content-Type’,’text/html;charset=utf8’);</li>
+<li>2 添加一些公共的方法和属性 req.query req.path req.send</li>
+<li>3 还可以覆盖一些原有方法，插入我们自己的逻辑</li>
+<li>中间件里可以放路径，但这个路径的含义是只要请求的URL以这个路径开头就可以<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.use(&apos;/user&apos;,function(req,res,next)&#123;</div><div class="line">    req.money -=50;</div><div class="line">    // next参数表示任务出错了，跳过后面正常的中间件，会执行错误处理中间件</div><div class="line">    next(&apos;失火了&apos;);</div><div class="line">&#125;);</div><div class="line">app.use(&apos;/user&apos;,function(err,req,res,next)&#123; //会多一个err参数</div><div class="line">   ...</div><div class="line">   res.end(&apos;错误:&apos;+err); //错误:&apos;失火了&apos;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="三-1、路由容器"><a href="#三-1、路由容器" class="headerlink" title="三-1、路由容器"></a>三-1、路由容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var user=require(&apos;./routes/user&apos;);//路径为routes目录下的user.js文件</div><div class="line">app.use(&apos;/user&apos;,user);//如果客户端访问的路径是以/user开头的话</div><div class="line"></div><div class="line">user.js:</div><div class="line">var express = require(&apos;express&apos;);</div><div class="line">//调用工厂方法生成一个路由容器的实例,这个实例也是一个中间件函数</div><div class="line">var router = express.Router();//特殊的</div><div class="line">router.get(&apos;/add&apos;,function(req,res)&#123;</div><div class="line">    res.end(&apos;注册&apos;);</div><div class="line">&#125;);</div><div class="line">module.exports = router;</div></pre></td></tr></table></figure>
+<ul>
+<li>路由(app.all..)和中间件都能匹配所有路径，当路由匹配上就不继续执行了，中间件是要看有没有next()</li>
+</ul>
+<h2 id="四、send"><a href="#四、send" class="headerlink" title="四、send"></a>四、send</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">res.sendFile(path.resolve(&apos;index.html&apos;));//发送一个绝对路径的文件</div><div class="line">res.send();//字符串或者模板字符串或者对象等等</div></pre></td></tr></table></figure>
+<h2 id="五、模板"><a href="#五、模板" class="headerlink" title="五、模板"></a>五、模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//设置模板引擎 ejs</div><div class="line">app.set(&apos;view engine&apos;,&apos;ejs&apos;);</div><div class="line">//如果模板的后缀是html的话，使用ejs来进行渲染</div><div class="line">app.engine(&apos;html&apos;,require(&apos;ejs&apos;).__express);</div></pre></td></tr></table></figure>
+<ul>
+<li>模板的存放目录的绝对路径<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.set(&apos;views&apos;,path.resolve(&apos;views&apos;));</div><div class="line">//静态文件中间件，也是express自己亲自的一个唯一中间件</div><div class="line">app.use(express.static(path.join(__dirname,&apos;public&apos;)));</div><div class="line">app.use(express.static(path.resolve(&apos;public&apos;)));</div><div class="line">app.get(&apos;&apos;,function()&#123;res.render(&apos;user,&#123;users:users&#125;&apos;)&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六、重定向"><a href="#六、重定向" class="headerlink" title="六、重定向"></a>六、重定向</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.get(&apos;&apos;,function(req,res)&#123;res.redirect(&apos;/&apos;)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="七、监听请求体"><a href="#七、监听请求体" class="headerlink" title="七、监听请求体"></a>七、监听请求体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var bodyParser = require(&apos;body-parser&apos;);//需要npm安装并可依赖</div><div class="line">app.use(bodyParser.urlencoded(&#123;extended:true&#125;));//表单数据</div><div class="line">app.use(bodyParser.json());                     //或json数据</div><div class="line">app.post(&apos;/login&apos;,function(req,res)&#123;console.log(req.body)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="八、cookie"><a href="#八、cookie" class="headerlink" title="八、cookie"></a>八、cookie</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var cookieParser=require(&apos;cookie-parser&apos;);</div><div class="line">//规律：基本上所有的中间件模块都是一个函数，调用它才会返回我们需要的中间件函数</div><div class="line">app.use(cookieParser())</div><div class="line"></div><div class="line">app.get(&apos;/write&apos;,function(req,res)&#123;</div><div class="line">	向客户端写cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;domain:&apos;.jd.com&apos;&#125;);//这个cookie归哪个域名所有，向哪此以这些域名为后缀的服务器发请求的时候要带上这些cookie</div><div class="line">	res.cookie(&apos;name&apos;,&apos;zfpx&apos;,&#123;path:&apos;/read1&apos;&#125;);//只有客户端向 /read1路径发请求的时候才要带上cookie</div><div class="line">	&#123;expires:new Date(Date.now()+1*1000)&#125;;//绝对的时间 1秒后过期</div><div class="line">	&#123;maxAge:10*1000&#125;;//相对的过期时间</div><div class="line">	&#123;httpOnly:true&#125;;//无法通过JS来读写cookie</div><div class="line">&#125;)</div><div class="line">app.get(&apos;/read&apos;,function(req,res)&#123;res.end(req.cookie)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="九、session"><a href="#九、session" class="headerlink" title="九、session"></a>九、session</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var session = require(&apos;express-session&apos;);//也需要npm安装并可依赖</div><div class="line">app.use(session(&#123;</div><div class="line">	resave:true,</div><div class="line">	saveUninitialized:true,</div><div class="line">	secret:&apos;zfpx&apos;//如果想不起来，可以直接运行在警告中查看需要写啥</div><div class="line">&#125;))</div><div class="line"></div><div class="line">req.session.success = &apos;注册成功&apos;;是改值</div><div class="line">req.session.success             ;是读值</div></pre></td></tr></table></figure>
+<h2 id="十、request"><a href="#十、request" class="headerlink" title="十、request"></a>十、request</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(req.method);//可以获取请求content-type方法</div><div class="line">console.log(req.url);//获取完整的url地址</div><div class="line">console.log(req.path);//获取路径名，就是?前面的部分</div><div class="line">console.log(req.query);//查询字符串对象</div><div class="line">console.log(req.headers);//获取请求头对象</div><div class="line">console.log(req.params.id);//可以获取URL中的参数值</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Neueste Artikel</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/01/06/mongo/">mongodb</a>
+      </li>
+    
+      <li>
+        <a href="/2017/01/06/express/">express</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/30/react/">react</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/30/gulp/">gulp</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/26/angular/">angular</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2017 zero
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
