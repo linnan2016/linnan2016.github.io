@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>html5+css3 | 林楠的个人博客</title>
+  <meta name="author" content="zero" />
+
+  
+  <meta name="description" content="以梦为马，越骑越傻" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="html5+css3" />
+  <meta property="og:site_name" content="林楠的个人博客" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="林楠的个人博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林楠的个人博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-01-16T09:39:43.884Z"><a href="/2017/01/16/html+css3/">2017-01-16</a></time>
+      
+      
+  
+    <h1 class="title">html5+css3</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="HTML5新增的语义化标签（结构标签），表单种类，表单属性，全局属性"><a href="#HTML5新增的语义化标签（结构标签），表单种类，表单属性，全局属性" class="headerlink" title="HTML5新增的语义化标签（结构标签），表单种类，表单属性，全局属性"></a>HTML5新增的语义化标签（结构标签），表单种类，表单属性，全局属性</h2><ul>
+<li>语义化标签：用合理的标签做合理的事情</li>
+<li>section，header 页面或者区域的头部部分</li>
+<li>main 主体部分</li>
+<li>footer，article 完整的独立的区域 （强调独立性），一般情况下，表示文章部分</li>
+<li>nav    导航（习惯性用在主导航）</li>
+<li>aside  主体内容的辅助信息,表示无关内容,去掉与否对主体内容不会产生影响</li>
+<li>figure 配图区域</li>
+<li>figcaption 图题 （对图片的描述）</li>
+</ul>
+<h2 id="表单种类"><a href="#表单种类" class="headerlink" title="表单种类"></a>表单种类</h2><ul>
+<li>search  键盘右下脚按钮从向右箭头变成搜索两个字</li>
+<li>tel 手机号码 数字键盘</li>
+<li>url  url地址</li>
+<li>email 邮箱地址</li>
+<li>number 数字输入框</li>
+<li>range 数值选择器 通过滑动来改变数值并且可以设置数值的范围</li>
+<li>color 颜色数值器</li>
+<li>datetime-local 日期和时间（本地时间）</li>
+<li>time 时间</li>
+<li>month 日期选择到月</li>
+<li>week  日期选择到周</li>
+</ul>
+<h2 id="表单属性"><a href="#表单属性" class="headerlink" title="表单属性"></a>表单属性</h2><ul>
+<li>autocomplete 是否保存用户输入信息 on保存，off不保存</li>
+<li>autofocus 光标自动聚焦</li>
+<li>placeholder 在输入前提示用户输入信息</li>
+<li>required 必须输入内容</li>
+<li>form 保证表单元素可以放在任何位置</li>
+<li>formnovalidate  设置在submit类型的按钮上 不用验证直接可提交</li>
+<li>novalidate 设置上form标签上 不用验证直接可提交</li>
+<li>pattern 通过正则设置验证规则</li>
+<li>setCustomValidity() 可以更改系统自带的提示信息</li>
+<li>自定义属性<ul>
+<li>data-name :  dataset.name</li>
+<li>data-name-first  :  dataset.nameFirst</li>
+</ul>
+</li>
+</ul>
+<h2 id="css2"><a href="#css2" class="headerlink" title="css2"></a>css2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">关系选择器</div><div class="line">E+F 相邻的弟弟节点</div><div class="line">E~F 所有的弟弟节点</div></pre></td></tr></table></figure>
+<h2 id="css3-结构选择器"><a href="#css3-结构选择器" class="headerlink" title="css3 结构选择器"></a>css3 结构选择器</h2><ul>
+<li><p>否定选择器（排除某些元素）<br>  :not(选择器)  ul li:not(:first-child)</p>
+</li>
+<li><p>属性选择器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">E[attr=val]</div><div class="line">E[attr|=val] 只能是val或者是val-开头</div><div class="line">E[attr*=val] 属性值中只要包含val即可</div><div class="line">E[attr~=val] 属性值有多个，其中有一个是val</div><div class="line">E[attr^=val] 以val开头</div><div class="line">E[attr$=val] 以val结尾</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h2><ul>
+<li>只能用在背景上</li>
+<li>linear-gradient</li>
+<li>渐变方向：沿着直线轴的方向</li>
+<li>第一个参数设置渐变方向 top left top left 45deg</li>
+<li>从第二个参数开始设置渐变颜色和位置(百分比或者固定值)</li>
+<li>两种颜色之间的区域称为渐变过渡区</li>
+<li>去掉渐变过渡区只需要对每个颜色设置起始位置和结束位置</li>
+<li>重复线性渐变</li>
+<li>repeating-linear-gradient</li>
+</ul>
+<h2 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">radial-gradient([[&lt;shape&gt; || &lt;size&gt;] [at &lt;position&gt;]?,| at &lt;position&gt;,]?&lt;color-stop&gt;[,&lt;color-stop&gt;]+);</div></pre></td></tr></table></figure>
+<ul>
+<li>从“一个点”向多方向颜色渐变</li>
+<li>shape  ellipse circle</li>
+<li><p>at 关键词可以设置圆心的位置 top center|10px 10px<br>100px 50px at center可以自己设置径向渐变的水平半径和垂直半径</p>
+</li>
+<li><p>背景</p>
+</li>
+<li><p>background-origin 设置背景图从哪个区域开始显示</p>
+<ul>
+<li>padding-box 从内边距开始显示 （默认值）</li>
+<li>border-box 从边框区域开始显示</li>
+<li>content-box 从内容区域开始显示</li>
+</ul>
+</li>
+<li><p>background-clip 从哪个区域往外裁剪</p>
+<ul>
+<li>padding-box 从padding区域往外裁剪</li>
+<li>border-box 从border区域往外裁剪 (默认值)</li>
+<li>content-box 从内容区域往外裁剪</li>
+</ul>
+</li>
+<li><p>background-size 设置背景图的大小</p>
+<ul>
+<li>100% 100%</li>
+<li>10px 10px</li>
+<li>contain 按照原来的比例收缩，背景图显示完整，但是不一定铺满整个容器</li>
+<li>cover 按照原来的比例收缩，背景图不一定显示完整，但是一定是铺满整个容器</li>
+</ul>
+</li>
+<li><p>box-shadow 默认外阴影，如果设置内阴影需要inset,内阴影方向和外阴影相反</p>
+<ul>
+<li>第一个参数：水平方向偏移 正-&gt;右 负-&gt;左</li>
+<li>第二个参数：垂直方向偏移 正-&gt;下 负-&gt;上</li>
+<li>第三个参数：模糊半径</li>
+<li>第四个参数：扩展半径</li>
+<li>第五个参数是颜色</li>
+</ul>
+</li>
+<li><p>text-shadow : x y blur  color</p>
+<ul>
+<li>x轴偏移  y轴偏移  模糊度  颜色</li>
+</ul>
+</li>
+</ul>
+<h2 id="css3动画"><a href="#css3动画" class="headerlink" title="css3动画"></a>css3动画</h2><ul>
+<li>transition属性</li>
+<li>transform变形属性 2D变形效果rotate(0deg) 旋转 正-&gt;顺时针旋转 负-&gt;逆时针旋转<ul>
+<li>skew(x,y) 倾斜  x：正-&gt;水平往左倾斜 x：负-&gt;水平往右倾斜  y：正-&gt;垂直往下 负-&gt;垂直往上</li>
+<li>scale(sx,sy) 缩放 默认值是1 <1缩小>1放大<br>translate(tx,ty) 默认值是0 平移 水平方向 ：正-&gt;右 负-&gt;左  垂直方向： 正-&gt;下 负-&gt;上</1缩小></li>
+<li>变形的基准点</li>
+<li>默认变形基准点是中心点</li>
+<li>transform-origin</li>
+</ul>
+</li>
+<li><p>animation帧动画</p>
+<ul>
+<li>弥补了过渡动画的缺陷</li>
+<li>例如：可以设置任意状态，不需要触发条件，是立马执行</li>
+<li>帧动画分为两步：<ul>
+<li>通过keyframes 动画名  设置动画的运动曲线</li>
+<li>通过animation调用声明的关键帧<br>3D变换</li>
+</ul>
+</li>
+<li>perspective：2000px 景深 （800px~2000px）    作用在祖先元素</li>
+<li><p>transform-style:flat|preserve-3d (3D空间展示)作用在变形元素的父标签</p>
+</li>
+<li><p>rotateX(45deg) 围着X轴翻转 前后翻转 正-&gt;前翻 负-&gt;后翻rotate3d(1,0,0,45deg)</p>
+</li>
+<li>rotateY(45deg) 围着Y轴翻转 左右翻转 正-&gt;往右 负-&gt;左翻rotate3d(0,1,0,45deg)</li>
+<li>rotateZ(45deg) 效果和rotate()一样的，但是是在Z轴上旋转rotate3d(0,0,1,45deg)</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/01/16/html+css3/">html5+css3</a>
+      </li>
+    
+      <li>
+        <a href="/2017/01/06/mongo/">mongodb</a>
+      </li>
+    
+      <li>
+        <a href="/2017/01/06/express/">express</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/30/react/">react</a>
+      </li>
+    
+      <li>
+        <a href="/2016/12/30/gulp/">gulp</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2017 zero
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
